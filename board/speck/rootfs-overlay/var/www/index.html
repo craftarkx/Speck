@@ -2,43 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpeckOS Workspace</title>
+    <link rel="stylesheet" href="desktop.css">
     <style>
-        body {
-            background: #111;
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            overflow: hidden;
-        }
-        #taskbar {
+        /* Embedded layout for our text editor window */
+        .speck-window {
+            display: none; /* Hidden by default */
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40px;
-            background: #222;
-            border-top: 2px solid #00ffcc;
-            display: flex;
-            align-items: center;
-            padding-left: 10px;
+            top: 15%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            background: #161920;
+            border: 2px solid #00ffcc;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            flex-direction: column;
+            z-index: 100;
         }
-        .logo {
+        .window-header {
+            background: #222733;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #00ffcc;
+            font-size: 14px;
+        }
+        .close-btn {
+            color: #ff0055;
+            cursor: pointer;
             font-weight: bold;
+        }
+        .window-body {
+            flex-grow: 1;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        #editor-textarea {
+            width: 100%;
+            height: 100%;
+            background: #0d0e11;
             color: #00ffcc;
+            border: 1px solid #333;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            resize: none;
+            outline: none;
+        }
+        .save-bar {
+            padding-top: 10px;
+            text-align: right;
+        }
+        .system-btn {
+            background: #0d0e11;
+            color: #00ffcc;
+            border: 1px solid #00ffcc;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        .system-btn:hover {
+            background: #00ffcc;
+            color: #0d0e11;
         }
     </style>
 </head>
 <body>
 
-    <!-- This is your visual desktop client layout -->
-    <div id="desktop">
-        <h1 style="padding: 20px;">.speck os</h1>
-        <p style="padding-left: 20px;">System Status: Secure & Offline</p>
+    <!-- App desktop interface launcher grid -->
+    <div id="desktop-grid">
+        <div class="app-icon" onclick="launchSpeckApp('SpeckWrite')">
+            <div class="icon-symbol">📝</div>
+            <div class="icon-name">SpeckWrite</div>
+        </div>
+        <div class="app-icon" onclick="launchSpeckApp('FileCore')">
+            <div class="icon-symbol">📁</div>
+            <div class="icon-name">FileCore</div>
+        </div>
+        <div class="app-icon" onclick="executeSystemUpdate()" style="border: 1px dashed #ff0055;">
+            <div class="icon-symbol" style="color: #ff0055;">🔄</div>
+            <div class="icon-name">System Update</div>
+        </div>
     </div>
 
-    <div id="taskbar">
-        <span class="logo">● SpeckConnect Active</span>
+    <!-- 📝 THE PHYSICAL TEXT EDITOR WINDOW -->
+    <div id="write-window" class="speck-window">
+        <div class="window-header">
+            <span id="window-title">SpeckWrite - welcome.txt</span>
+            <span class="close-btn" onclick="closeWindow('write-window')">[X]</span>
+        </div>
+        <div class="window-body">
+            <textarea id="editor-textarea"></textarea>
+            <div class="save-bar">
+                <button class="system-btn" onclick="saveActiveDocument()">Save to Stick</button>
+            </div>
+        </div>
     </div>
 
+    <!-- The minimalist system taskbar panel -->
+    <div id="taskbar" style="position: absolute; bottom: 0; width: 100%; height: 40px; background: #161920; border-top: 2px solid #00ffcc; display: flex; align-items: center; padding-left: 15px;">
+        <span class="logo" style="font-weight: bold; color: #00ffcc; font-size: 14px;">● SpeckConnect Active (Offline Mode)</span>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
