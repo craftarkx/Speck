@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpeckOS Workspace</title>
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            overflow: hidden;
+        }
+        #taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: #222;
+            border-top: 2px solid #00ffcc;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+        }
+        .logo {
+            font-weight: bold;
+            color: #00ffcc;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- This is your visual desktop client layout -->
+    <div id="desktop">
+        <h1 style="padding: 20px;">.speck os</h1>
+        <p style="padding-left: 20px;">System Status: Secure & Offline</p>
+    </div>
+
+    <div id="taskbar">
+        <span class="logo">● SpeckConnect Active</span>
+    </div>
+
+</body>
+</html>
